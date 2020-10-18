@@ -1,9 +1,11 @@
 package com.ispring.gameplane;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.ispring.gameplane.game.GameView;
+import com.ispring.gameplane.service.MusicServer;
 
 
 public class GameActivity extends Activity {
@@ -13,6 +15,7 @@ public class GameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_game);
         gameView = (GameView)findViewById(R.id.gameView);
         //0:combatAircraft
@@ -42,6 +45,15 @@ public class GameActivity extends Activity {
                 R.drawable.bomb
         };
         gameView.start(bitmapIds);
+        Intent intentMusic = new Intent(GameActivity.this, MusicServer.class);
+        startService(intentMusic);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Intent intent = new Intent(GameActivity.this,MusicServer.class);
+        stopService(intent);
     }
 
     @Override

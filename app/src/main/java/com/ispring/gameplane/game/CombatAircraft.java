@@ -73,17 +73,20 @@ public class CombatAircraft extends Sprite {
         float y = getY() - 5;
         if(single){
             //单发模式下发射单发黄色子弹
-            Bitmap yellowBulletBitmap = gameView.getYellowBulletBitmap();
-            Bullet yellowBullet = new Bullet(yellowBulletBitmap);
-            yellowBullet.moveTo(x, y);
-            gameView.addSprite(yellowBullet);
-        }
-        else{
-            //双发模式下发射两发蓝色子弹
+//            Bitmap yellowBulletBitmap = gameView.getYellowBulletBitmap();
+//            Bullet yellowBullet = new Bullet(yellowBulletBitmap);
+//            yellowBullet.moveTo(x, y);
+//            gameView.addSprite(yellowBullet);
+
+
             float offset = getWidth() / 4;
             float leftX = x - offset;
             float rightX = x + offset;
             Bitmap blueBulletBitmap = gameView.getBlueBulletBitmap();
+
+            Bullet leftBlueBullet_ = new Bullet(blueBulletBitmap);
+            leftBlueBullet_.moveTo(leftX-20, y);
+            gameView.addSprite(leftBlueBullet_);
 
             Bullet leftBlueBullet = new Bullet(blueBulletBitmap);
             leftBlueBullet.moveTo(leftX, y);
@@ -96,6 +99,43 @@ public class CombatAircraft extends Sprite {
             Bullet centerBlueBullet = new Bullet(blueBulletBitmap);
             centerBlueBullet.moveTo((leftX+rightX)/2, y);
             gameView.addSprite(centerBlueBullet);
+
+            Bullet rightBlueBullet_ = new Bullet(blueBulletBitmap);
+            rightBlueBullet_.moveTo(rightX+20, y);
+            gameView.addSprite(rightBlueBullet_);
+
+            doubleTime++;
+            if(doubleTime >= maxDoubleTime){
+                single = true;
+                doubleTime = 0;
+            }
+        }
+        else{
+            //双发模式下发射两发蓝色子弹
+            float offset = getWidth() / 4;
+            float leftX = x - offset;
+            float rightX = x + offset;
+            Bitmap blueBulletBitmap = gameView.getBlueBulletBitmap();
+
+            Bullet leftBlueBullet_ = new Bullet(blueBulletBitmap);
+            leftBlueBullet_.moveTo(leftX-10, y);
+            gameView.addSprite(leftBlueBullet_);
+
+            Bullet leftBlueBullet = new Bullet(blueBulletBitmap);
+            leftBlueBullet.moveTo(leftX, y);
+            gameView.addSprite(leftBlueBullet);
+
+            Bullet rightBlueBullet = new Bullet(blueBulletBitmap);
+            rightBlueBullet.moveTo(rightX, y);
+            gameView.addSprite(rightBlueBullet);
+
+            Bullet centerBlueBullet = new Bullet(blueBulletBitmap);
+            centerBlueBullet.moveTo((leftX+rightX)/2, y);
+            gameView.addSprite(centerBlueBullet);
+
+            Bullet rightBlueBullet_ = new Bullet(blueBulletBitmap);
+            rightBlueBullet_.moveTo(rightX+10, y);
+            gameView.addSprite(rightBlueBullet_);
 
             doubleTime++;
             if(doubleTime >= maxDoubleTime){
